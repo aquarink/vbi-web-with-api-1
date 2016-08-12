@@ -25,6 +25,15 @@ class AdminModel {
         return $result;
     }
 
+    // Read Once [Auth] -> Token
+    public function TokenAuth($token) {
+        $query = $this->panggilKoneksi->prepare("SELECT * FROM member_tb WHERE enc_token = ?");
+        $data = array($token);
+        $query->execute($data);
+        $result = $query->rowCount();
+        return $result;
+    }
+
     // Read Once [Get Data] -> Email & Password
     public function GetDataByLogin($email,$pass) {
         $query = $this->panggilKoneksi->prepare("SELECT email,nama_depan,nama_belakang,telepon,status_member,enc_token FROM member_tb WHERE email = ? AND password = ?");
